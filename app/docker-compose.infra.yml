@@ -1,0 +1,33 @@
+services:
+  eureka-service:
+    image: ghcr.io/toolatebro/eureka-service:latest
+    container_name: eureka-service
+    ports:
+      - "19090:19090"
+    networks:
+      - takenseat_network
+    restart: unless-stopped
+
+  gateway-service:
+    image: ghcr.io/toolatebro/gateway-service:latest
+    container_name: gateway-service
+    depends_on:
+      - eureka-service
+    ports:
+      - "19091:19091"
+    networks:
+      - takenseat_network
+    environment:
+      - REDIS_HOST=redis-stack-compose
+      - REDIS_PORT=6379
+      - REDIS_USERNAME=default
+      - REDIS_PASSWORD=systempass
+      - EUREKA_DEFAULT_ZONE=http://eureka-service:19090/eureka/
+      - JWT_SECRET=jt0secret1key2test3leeson4f4b9e8c2a1d5f7e9b3c0d8a6e2f1b4c7d9e0a5f3b8c1d6e4a7f2b9c0d3e5a1f8
+      - LOKI_URL=http://loki:3100
+    restart: unless-stopped
+
+networks:
+  takenseat_network:
+    name: takenseat_network
+    driver: bridge

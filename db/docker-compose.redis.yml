@@ -1,0 +1,20 @@
+services:
+  redis-stack:
+    image: redis/redis-stack
+    container_name: redis-stack-compose
+    restart: always
+    command: >
+      redis-server
+      --requirepass systempass
+      --notify-keyspace-events Ex
+    ports:
+      - 6379:6379
+      - 8001:8001
+    networks:
+      - takenseat_network
+
+
+networks:
+  takenseat_network:
+    name: takenseat_network
+    driver: bridge

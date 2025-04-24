@@ -1,0 +1,190 @@
+services:
+  auth-service:
+    image: ghcr.io/toolatebro/auth-service:latest
+    container_name: auth-service
+    ports:
+      - "19092:19092"
+    networks:
+      - takenseat_network
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/auth
+      SPRING_DATASOURCE_USERNAME: toolatebro
+      SPRING_DATASOURCE_PASSWORD: toolatebro
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+
+      REDIS_HOST: redis-stack-compose
+      REDIS_PORT: 6379
+      REDIS_USERNAME: default
+      REDIS_PASSWORD: systempass
+
+      EUREKA_DEFAULT_ZONE: http://eureka-service:19090/eureka/
+
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+
+      ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      LOKI_URL: loki:3100
+
+      JWT_SECRET: jt0secret1key2test3leeson4f4b9e8c2a1d5f7e9b3c0d8a6e2f1b4c7d9e0a5f3b8c1d6e4a7f2b9c0d3e5a1f8
+
+  booking-service:
+    image: ghcr.io/toolatebro/booking-service:latest
+    container_name: booking-service
+    ports:
+      - "19095:19095"
+    networks:
+      - takenseat_network
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/booking
+      SPRING_DATASOURCE_USERNAME: toolatebro
+      SPRING_DATASOURCE_PASSWORD: toolatebro
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+
+      REDIS_HOST: redis-stack-compose
+      REDIS_PORT: 6379
+      REDIS_USERNAME: default
+      REDIS_PASSWORD: systempass
+
+      EUREKA_DEFAULT_ZONE: http://eureka-service:19090/eureka/
+
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+
+      ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      LOKI_URL: loki:3100
+
+  coupon-service:
+    image: ghcr.io/toolatebro/coupon-service:latest
+    container_name: coupon-service
+    ports:
+      - "19093:19093"
+    networks:
+      - takenseat_network
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/coupon
+      SPRING_DATASOURCE_USERNAME: toolatebro
+      SPRING_DATASOURCE_PASSWORD: toolatebro
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+
+      REDIS_HOST: redis-stack-compose
+      REDIS_PORT: 6379
+      REDIS_USERNAME: default
+      REDIS_PASSWORD: systempass
+
+      EUREKA_DEFAULT_ZONE: http://eureka-service:19090/eureka/
+
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+
+      ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      LOKI_URL: loki:3100
+
+
+  payment-service:
+    image: ghcr.io/toolatebro/payment-service:latest
+    container_name: payment-service
+    ports:
+      - "19097:19097"
+    networks:
+      - takenseat_network
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/payment
+      SPRING_DATASOURCE_USERNAME: toolatebro
+      SPRING_DATASOURCE_PASSWORD: toolatebro
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+
+      REDIS_HOST: redis-stack-compose
+      REDIS_PORT: 6379
+      REDIS_USERNAME: default
+      REDIS_PASSWORD: systempass
+
+      EUREKA_DEFAULT_ZONE: http://eureka-service:19090/eureka/
+
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+
+      ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      LOKI_URL: loki:3100
+
+  performance-service:
+    image: ghcr.io/toolatebro/performance-service:latest
+    container_name: performance-service
+    ports:
+      - "19096:19096"
+    networks:
+      - takenseat_network
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/performance
+      SPRING_DATASOURCE_USERNAME: toolatebro
+      SPRING_DATASOURCE_PASSWORD: toolatebro
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+
+      REDIS_HOST: redis-stack-compose
+      REDIS_PORT: 6379
+      REDIS_USERNAME: default
+      REDIS_PASSWORD: systempass
+
+      EUREKA_DEFAULT_ZONE: http://eureka-service:19090/eureka/
+
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+
+      ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      LOKI_URL: loki:3100
+
+  queue-service:
+    image: ghcr.io/toolatebro/queue-service:latest
+    container_name: queue-service
+    ports:
+      - "19094:19094"
+    networks:
+      - takenseat_network
+    restart: unless-stopped
+    environment:
+      REDIS_HOST: redis-stack-compose
+      REDIS_PORT: 6379
+      REDIS_USERNAME: default
+      REDIS_PASSWORD: systempass
+
+      EUREKA_DEFAULT_ZONE: http://eureka-service:19090/eureka/
+
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+
+      ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      LOKI_URL: loki:3100
+
+      JWT_SECRET: 401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429080fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1
+
+  review-service:
+    image: ghcr.io/toolatebro/review-service:latest
+    container_name: review-service
+    ports:
+      - "19098:19098"
+    networks:
+      - takenseat_network
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/review
+      SPRING_DATASOURCE_USERNAME: toolatebro
+      SPRING_DATASOURCE_PASSWORD: toolatebro
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+
+      REDIS_HOST: redis-stack-compose
+      REDIS_PORT: 6379
+      REDIS_USERNAME: default
+      REDIS_PASSWORD: systempass
+
+      EUREKA_DEFAULT_ZONE: http://eureka-service:19090/eureka/
+
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+
+      ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      LOKI_URL: loki:3100
+
+      PERFORMANCE_URL: http://performance-service:19096/api/v1/performances
+      BOOKING_URL: http://booking-service:19095/api/v1/bookings
+
+networks:
+  takenseat_network:
+    name: takenseat_network
+    driver: bridge

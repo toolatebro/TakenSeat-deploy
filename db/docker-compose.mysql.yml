@@ -1,0 +1,25 @@
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_USER: toolatebro
+      MYSQL_PASSWORD: toolatebro
+      MYSQL_DATABASE: takenseat
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # 로컬 init.sql 파일을 컨테이너에 매핑
+      - mysql-data:/var/lib/mysql
+    networks:
+      - takenseat_network
+
+volumes:
+  mysql-data:
+
+networks:
+  takenseat_network:
+    name: takenseat_network
+    driver: bridge
